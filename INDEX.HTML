@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGRIMM AI - Ankjyotish Expert</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+        .gold-glow { text-shadow: 0 0 10px rgba(234, 179, 8, 0.5); }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="bg-[#0f172a] text-white min-h-screen flex flex-col">
+
+    <nav class="p-5 flex justify-between items-center border-b border-slate-800 glass sticky top-0 z-50">
+        <div class="text-2xl font-extrabold tracking-tighter">
+            <span class="text-yellow-500 gold-glow">AGRIMM</span> <span>AI</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="text-[10px] text-slate-400 uppercase tracking-widest hidden sm:inline">Expert System</span>
+            <div class="bg-yellow-600 text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow-lg">ID: KS3-AK</div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex flex-col items-center justify-center px-4 py-12">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl md:text-6xl font-black mb-4 leading-tight">
+                आज का <span class="text-yellow-500">फिक्स अंक</span> <br>यहाँ निकालें
+            </h1>
+            <p class="text-slate-400 text-sm md:text-base max-w-lg mx-auto uppercase tracking-widest">
+                अंक ज्योतिष और असली गुप्त विधि द्वारा प्रमाणित
+            </p>
+        </div>
+
+        <div class="w-full max-w-2xl bg-slate-800/50 p-6 rounded-3xl border border-slate-700 shadow-2xl">
+            <div class="relative group">
+                <input id="marketInput" type="text" 
+                    placeholder="मार्केट का नाम डालें (उदा: Kalyan)..." 
+                    class="w-full p-5 pl-6 rounded-2xl bg-slate-900 border-2 border-slate-700 focus:border-yellow-500 focus:ring-4 focus:ring-yellow-500/10 outline-none text-xl transition-all"
+                >
+                <button onclick="calculateNumbers()" class="mt-4 md:mt-0 md:absolute md:right-3 md:top-3 w-full md:w-auto bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-bold px-8 py-3 rounded-xl transition-transform active:scale-95 shadow-xl">
+                    अंक देखें
+                </button>
+            </div>
+
+            <div class="mt-6 flex flex-wrap justify-center gap-3">
+                <button onclick="setInput('Kalyan')" class="bg-slate-700/50 hover:bg-slate-600 px-4 py-2 rounded-lg text-sm transition">Kalyan</button>
+                <button onclick="setInput('Supreme')" class="bg-slate-700/50 hover:bg-slate-600 px-4 py-2 rounded-lg text-sm transition">Supreme</button>
+                <button onclick="setInput('Main Bazar')" class="bg-slate-700/50 hover:bg-slate-600 px-4 py-2 rounded-lg text-sm transition">Main Bazar</button>
+                <button onclick="setInput('Milan Day')" class="bg-slate-700/50 hover:bg-slate-600 px-4 py-2 rounded-lg text-sm transition">Milan Day</button>
+            </div>
+        </div>
+
+        <div id="resultCard" class="hidden mt-12 w-full max-w-md animate-in fade-in zoom-in duration-500">
+            <div class="bg-gradient-to-b from-yellow-500 to-yellow-700 p-[2px] rounded-3xl shadow-[0_0_30px_rgba(234,179,8,0.3)]">
+                <div class="bg-slate-900 rounded-[22px] p-8 text-center">
+                    <h3 id="marketTitle" class="text-yellow-500 font-bold uppercase tracking-widest mb-4">KALYAN RESULT</h3>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
+                            <span class="text-[10px] text-slate-400 block mb-1">OPEN</span>
+                            <span id="openNum" class="text-4xl font-black text-white">?</span>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
+                            <span class="text-[10px] text-slate-400 block mb-1">CLOSE</span>
+                            <span id="closeNum" class="text-4xl font-black text-white">?</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-500/10 p-3 rounded-xl mb-4">
+                        <span class="text-xs text-yellow-500 font-semibold uppercase">Special Jodi: </span>
+                        <span id="jodiNum" class="text-xl font-bold text-white ml-2">--</span>
+                    </div>
+
+                    <p class="text-[10px] text-slate-500 italic">गणना तिथि: <span id="currentDate"></span> | Table Trick</p>
+                </div>
+            </div>
+        </div>
+    </main>
+<a href="https://wa.me/7225914607?text=Hello%20Sattish%20Bhai,%20mujhe%20game%20chahiye" 
+   target="_blank" 
+   class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110 flex items-center justify-center z-[100]">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+    </svg>
+</a>
+    <footer class="p-6 text-center text-[10px] text-slate-600 border-t border-slate-800 mt-10">
+        <p class="max-w-xs mx-auto mb-2">चेतावनी: यह वेबसाइट केवल अंक शास्त्र और ज्योतिष गणना पर आधारित है। हम किसी भी तरह के अवैध जुए का समर्थन नहीं करते हैं।</p
