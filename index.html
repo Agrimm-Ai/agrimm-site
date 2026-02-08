@@ -26,12 +26,12 @@
 
         .header h1 { font-size: 2.2rem; margin: 15px 0; color: var(--gold); text-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
 
-        /* Search Box */
+        /* Search Section */
         .search-wrapper { background: var(--card); padding: 15px; border-radius: 20px; border: 1px solid #30363d; margin-bottom: 25px; }
         input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #30363d; background: #161b22; color: white; outline: none; margin-bottom: 10px; font-size: 16px; }
         .btn-search { width: 100%; padding: 12px; background: var(--gold); border: none; border-radius: 10px; font-weight: 900; color: #000; cursor: pointer; }
 
-        /* Sections Styles */
+        /* Game Areas */
         .game-display { display: none; animation: fadeIn 0.4s; text-align: left; }
         .game-display.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -56,7 +56,7 @@
     <div class="nav-item" onclick="switchTab('jyotish', this)">ANKJYOTISH</div>
     <div class="nav-item" onclick="switchTab('2ank', this)">2-ANK</div>
     <div class="nav-item" onclick="switchTab('vip', this)">VIP OTC</div>
-    <a href="https://wa.me/917225914607" class="nav-item nav-wa">WHATSAPP</a>
+    <a href="https://wa.me/917225914607?text=Sir%20Mujhe%20Fix%20Game%20Chahiye" class="nav-item nav-wa">WHATSAPP</a>
 </nav>
 
 <div class="header"><h1>AGRIMM OFFICIAL</h1></div>
@@ -64,11 +64,11 @@
 <div class="container">
     <div class="date-banner">
         <span class="live-dot"></span>
-        <span id="liveDate">Loading Date...</span>
+        <span id="liveDate">Loading Current Date...</span>
     </div>
 
     <div class="search-wrapper">
-        <input type="text" id="searchInput" placeholder="Search Market (e.g. Kalyan)" onkeyup="filterMarkets()">
+        <input type="text" id="searchInput" placeholder="Search Market (Kalyan, Milan...)" onkeyup="filterMarkets()">
         <button class="btn-search">SEARCH LIVE GAME</button>
     </div>
 
@@ -87,7 +87,6 @@
             <b style="color:var(--blue);">☞ Madhur Day Ya Milan Day</b><br><span class="m-ank">☞ 1-0-7-2</span><hr style="border:0.5px dashed #444;">
             <b style="color:var(--blue);">☞ Rajdhani Day</b><br><span class="m-ank">☞ 1-6-2-7</span><hr style="border:0.5px dashed #444;">
             <b style="color:var(--blue);">☞ Kalyan Ya Sridevi Night</b><br><span class="m-ank">☞ 1-2-3-9</span><hr style="border:0.5px dashed #444;">
-            <b style="color:var(--blue);">☞ Madhur Night Ya Raj Nght</b><br><span class="m-ank">☞ 5-6-7</span><hr style="border:0.5px dashed #444;">
             <b style="color:var(--blue);">☞ Milan Night Ya Main Bazar</b><br><span class="m-ank">☞ 4-9-1-6</span>
         </div>
     </div>
@@ -116,27 +115,26 @@
         <div class="vip-card" style="border-color: var(--green); background: rgba(37, 211, 102, 0.05);">
             <div style="background:var(--green); color:white; font-weight:bold; padding:5px; border-radius:5px; font-size:12px; margin-bottom:10px;">VIP BOOKING OPEN</div>
             <h2 style="margin:5px 0; color:white;">FIX OPEN-JODI-PANNA</h2>
-            <a href="https://wa.me/917225914607?text=Sir%20Mujhe%20Fix%20Game%20Chahiye" class="wa-btn">हमसे जुड़ें (DIRECT WHATSAPP)</a>
+            <a href="https://wa.me/917225914607?text=Sir%20Mujhe%20Fix%20Game%20Chahiye" class="wa-btn">DIRECT WHATSAPP LINK</a>
         </div>
 
         <div class="vip-card">
             <div style="color:var(--gold); font-weight: 900; font-size: 18px;">☀️ DAY MASTER CHART</div>
-            <small style="color:#8b949e;">(Sridevi Day से Kalyan तक)</small>
+            <small style="color:#8b949e;">(Sridevi Day To Kalyan)</small>
             <span class="big-digit">4</span>
             <div style="border: 1px solid var(--blue); padding: 6px 20px; border-radius: 10px; font-size: 13px; background: rgba(56, 189, 248, 0.1); font-weight: bold; display: inline-block; margin: 15px 0;">SINGLE FOLLOW: <b style="color:var(--gold);">4 --- 9</b></div>
-            <div class="panna-grid" style="text-align: center;">
+            <div class="panna-grid" style="text-align: center; border: 1px dashed var(--gold);">
                 <small style="color:var(--gold); font-weight: bold;">💎 VIP PANNA</small><br>
                 <b style="font-size: 24px;">130, 248, 590</b>
             </div>
-            <div style="background: #fff3cd; color: #856404; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: bold; margin-top: 15px;">⚠️ जहाँ गेम पास हो जाये, वही STOP कर दें।</div>
         </div>
 
         <div class="vip-card" style="border-color: var(--blue);">
             <div style="color:var(--blue); font-weight: 900; font-size: 18px;">🌙 NIGHT MASTER CHART</div>
-            <small style="color:#8b949e;">(Sridevi Night से Main Bazar तक)</small>
+            <small style="color:#8b949e;">(Sridevi Night To Main Bazar)</small>
             <span class="big-digit" style="-webkit-text-stroke: 2px var(--blue);">0</span>
             <div style="border: 1px solid var(--gold); padding: 6px 20px; border-radius: 10px; font-size: 13px; background: rgba(255, 215, 0, 0.1); font-weight: bold; display: inline-block; margin: 15px 0;">SINGLE FOLLOW: <b style="color:var(--blue);">0 --- 5</b></div>
-            <div class="panna-grid" style="text-align: center; border-color: var(--blue);">
+            <div class="panna-grid" style="text-align: center; border: 1px dashed var(--blue);">
                 <small style="color:var(--blue); font-weight: bold;">💎 VIP PANNA</small><br>
                 <b style="font-size: 24px;">145, 235, 690</b>
             </div>
@@ -154,12 +152,12 @@
 </footer>
 
 <script>
-    function updateDate() {
-        const now = new Date();
+    function updateLiveDate() {
+        const d = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('liveDate').innerText = "आज का गेम: " + now.toLocaleDateString('hi-IN', options);
+        document.getElementById('liveDate').innerText = "आज का गेम: " + d.toLocaleDateString('hi-IN', options);
     }
-    updateDate();
+    updateLiveDate();
 
     const m14 = ["Sridevi Day", "Time Bazar", "Madhur Day", "Milan Day", "Rajdhani Day", "Supreme Day", "Kalyan", "Sridevi Night", "Time Night", "Madhur Night", "Milan Night", "Rajdhani Night", "Main Bazar", "Kalyan Night"];
     function load6() {
@@ -191,4 +189,3 @@
 </script>
 </body>
 </html>
-
