@@ -1,133 +1,161 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOLDEN BRAND - OFFICIAL BOOKI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@700;900&display=swap" rel="stylesheet">
+    <title>AGRIMM OFFICIAL - VIP TRICK CENTER</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --gold: #D4AF37; 
-            --bg-grey: #2c3136; 
-            --card-grey: #3e444a; 
-            --text: #ffffff;
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        body { 
-            font-family: 'Roboto', sans-serif; 
-            background-color: var(--bg-grey); 
-            color: var(--text); 
-            padding-bottom: 100px;
-        }
+        :root { --gold: #ffd700; --blue: #38bdf8; --dark: #010409; --card: #0d1117; --green: #25d366; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Poppins', sans-serif; background: var(--dark); color: white; margin: 0; scroll-behavior: smooth; text-align: center; }
 
-        .header { 
-            background: linear-gradient(180deg, #444b52 0%, var(--bg-grey) 100%);
-            padding: 45px 15px; text-align: center; border-bottom: 4px solid var(--gold);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-        }
-        .header h1 { 
-            font-family: 'Oswald', sans-serif; font-size: 3rem; color: var(--gold); 
-            text-transform: uppercase; letter-spacing: 3px; font-weight: 700;
-        }
-        .header h2 { 
-            font-size: 13px; color: #fff; background: rgba(0,0,0,0.3);
-            display: inline-block; padding: 5px 20px; border-radius: 2px;
-            margin-top: 10px; border: 1px solid var(--gold); letter-spacing: 2px;
-        }
+        /* Navigation */
+        .navbar { background: #000; padding: 12px 5px; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--gold); display: flex; justify-content: space-around; overflow-x: auto; white-space: nowrap; }
+        .nav-item { color: #fff; text-decoration: none; font-size: 11px; font-weight: bold; padding: 8px 12px; cursor: pointer; border-radius: 5px; }
+        .nav-item.active { background: var(--gold); color: #000; }
+        .nav-wa { background: var(--green); color: white !important; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
 
-        .container { max-width: 550px; margin: auto; padding: 15px; }
+        .container { max-width: 500px; margin: auto; padding: 15px; }
+        .header { padding: 30px 10px; text-align: center; background: radial-gradient(circle at top, #1e293b, #010409); }
+        .header h1 { font-size: 2.2rem; margin: 0; color: var(--gold); text-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
 
-        .master-box {
-            background: var(--card-grey); border-radius: 12px;
-            overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
+        .game-display { display: none; animation: fadeIn 0.4s; }
+        .game-display.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .section-head { 
-            background: #23272a; padding: 12px; text-align: center;
-            font-family: 'Oswald', sans-serif; color: var(--gold);
-            font-size: 14px; letter-spacing: 1px; border-bottom: 2px solid var(--gold);
-        }
+        .m-card { background: var(--card); padding: 18px; border-radius: 15px; display: flex; justify-content: space-between; margin-bottom: 12px; border-left: 4px solid var(--blue); align-items: center; text-align: left; }
+        .m-ank { font-size: 18px; font-weight: 900; color: var(--gold); letter-spacing: 1px; }
 
-        .rate-grid { display: grid; grid-template-columns: 1fr 1fr; background: rgba(0,0,0,0.1); }
-        .rate-item { padding: 15px; border: 1px solid rgba(255,255,255,0.03); text-align: center; }
-        .rate-item b { font-size: 12px; color: #adb5bd; display: block; margin-bottom: 5px; }
-        .rate-val { font-size: 16px; font-weight: 900; color: #fff; }
-
-        .market-list { background: var(--card-grey); }
-        .m-row { 
-            display: flex; justify-content: space-between; padding: 14px 20px; 
-            border-bottom: 1px solid rgba(255,255,255,0.03); align-items: center;
-        }
-        .m-row:nth-child(even) { background: rgba(0,0,0,0.05); }
-        .m-name { font-weight: 900; font-size: 13px; color: #fff; }
-        .m-time { font-family: 'Oswald', sans-serif; font-size: 13px; color: var(--gold); font-weight: bold; }
-
-        .vip-active { background: rgba(212, 175, 55, 0.1) !important; border-left: 5px solid var(--gold); }
-        .vip-active .m-name { color: var(--gold); font-size: 14px; }
-
-        .wa-footer {
-            position: fixed; bottom: 25px; width: 90%; left: 5%;
-            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
-            color: #fff; text-align: center; padding: 20px; border-radius: 8px;
-            text-decoration: none; font-weight: 900; font-size: 19px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4); z-index: 1000;
-            text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2);
-        }
+        .vip-card { background: #0d1117; border: 2px solid var(--gold); border-radius: 25px; padding: 20px; text-align: center; margin-bottom: 25px; }
+        .big-digit { font-size: 80px; font-weight: 900; color: transparent; -webkit-text-stroke: 2px var(--gold); margin: 5px 0; display: block; line-height: 1; }
+        .rule-box { padding: 12px; border-radius: 10px; font-size: 13px; font-weight: bold; text-align: left; margin-top: 15px; border-left: 4px solid #ff4444; background: #ffebeb; color: #b71c1c; }
+        .wa-btn { display: block; background: var(--green); color: white; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: bold; margin-top: 15px; text-align: center; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>GOLDEN BRAND</h1>
-    <h2>G G KING ONLINE BOOKI</h2>
-</div>
+<nav class="navbar">
+    <div class="nav-item active" onclick="switchTab('6ank', this)">6-ANK</div>
+    <div class="nav-item" onclick="switchTab('single_otc', this)">SINGLE OTC</div>
+    <div class="nav-item" onclick="switchTab('2ank', this)">2-ANK</div>
+    <div class="nav-item" onclick="switchTab('date_fix', this)">DATE FIX GAME</div>
+    <div class="nav-item" onclick="switchTab('strong_ank', this)">STRONG ANK</div>
+    <a href="https://wa.me/917225914607?text=Sir%20Mujhe%20Fix%20Game%20Chahiye" class="nav-item nav-wa">WHATSAPP</a>
+</nav>
+
+<div class="header"><h1>AGRIMM OFFICIAL</h1></div>
 
 <div class="container">
-    
-    <div class="master-box">
-        <div class="section-head">♨️ RATE LIST (बेस्ट रेट) ♨️</div>
-        <div class="rate-grid">
-            <div class="rate-item"><b>ANK</b> <span class="rate-val">10 = 95</span></div>
-            <div class="rate-item"><b>JODI</b> <span class="rate-val">10 = 950</span></div>
-            <div class="rate-item"><b>SP PANNA</b> <span class="rate-val">10 = 1500</span></div>
-            <div class="rate-item"><b>DP PANNA</b> <span class="rate-val">10 = 3000</span></div>
-            <div class="rate-item"><b>TP PANNA</b> <span class="rate-val">10 = 5000</span></div>
-            <div class="rate-item"><b>HALF SANGAM</b> <span class="rate-val">10 = 10000</span></div>
-            <div class="rate-item" style="grid-column: span 2; background: rgba(255,255,255,0.05);">
-                <b style="color:var(--gold)">FULL SANGAM</b> 
-                <span class="rate-val" style="color:var(--gold); font-size: 22px;">10 = 1,00,000</span>
+
+    <div id="6ank" class="game-display active">
+        <div style="color:var(--gold); margin-bottom:15px; font-weight:bold;">📅 DATE: 09-02-2026 (FIX 6-ANK)</div>
+        <div id="list6"></div>
+    </div>
+
+    <div id="single_otc" class="game-display">
+        <div class="vip-card">
+            <div style="color:var(--gold); font-weight: 900;">☀️ DAY MASTER</div>
+            <small style="color:#8b949e;">(Sridevi Day से Kalyan तक)</small>
+            <span class="big-digit">4</span>
+            <div style="border: 1px dashed var(--gold); border-radius: 15px; padding: 15px; background: rgba(255, 215, 0, 0.05); margin-top: 10px;">
+                <small style="color:var(--gold);">💎 VIP PANNA</small><br>
+                <b style="font-size: 24px; color:white;">130, 248, 590</b>
+            </div>
+            <div class="rule-box">
+                ⚠️ नियम: जहाँ गेम पास हो जाये, उसके बाद तुरंत STOP कर दें।
             </div>
         </div>
 
-        <div class="section-head" style="border-top: 2px solid var(--gold);">⏰ पूरे 14 मार्केट टाइमिंग ⏰</div>
-        <div class="market-list">
-            <div class="m-row"><span>SHRIDEVI DAY</span> <span class="m-time">11:25 - 12:25</span></div>
-            <div class="m-row"><span>TIME BAZAR</span> <span class="m-time">12:50 - 01:50</span></div>
-            <div class="m-row"><span>MADHUR DAY</span> <span class="m-time">01:25 - 02:25</span></div>
-            <div class="m-row"><span>MILAN DAY</span> <span class="m-time">02:50 - 04:50</span></div>
-            <div class="m-row"><span>RAJDHANI DAY</span> <span class="m-time">03:08 - 05:08</span></div>
-            <div class="m-row"><span>SUPREME DAY</span> <span class="m-time">03:25 - 05:25</span></div>
-            <div class="m-row vip-active"><span>KALYAN DAY 👑</span> <span class="m-time">03:35 - 05:35</span></div>
-            <div class="m-row"><span>SHRIDEVI NIGHT</span> <span class="m-time">07:05 - 08:05</span></div>
-            <div class="m-row"><span>MADHUR NIGHT</span> <span class="m-time">08:25 - 10:25</span></div>
-            <div class="m-row"><span>SUPREME NIGHT</span> <span class="m-time">08:35 - 10:35</span></div>
-            <div class="m-row"><span>MILAN NIGHT</span> <span class="m-time">08:55 - 10:55</span></div>
-            <div class="m-row vip-active"><span>KALYAN NIGHT 🌙</span> <span class="m-time">09:20 - 11:20</span></div>
-            <div class="m-row"><span>RAJDHANI NIGHT</span> <span class="m-time">09:30 - 11:30</span></div>
-            <div class="m-row vip-active" style="border-left-color: #2ecc71;"><span>MAIN BAZAR 🔥</span> <span class="m-time">09:50 - 11:59</span></div>
+        <div class="vip-card" style="border-color: var(--blue);">
+            <div style="color:var(--blue); font-weight: 900;">🌙 NIGHT MASTER</div>
+            <small style="color:#8b949e;">(Sridevi Night से Main Bazar तक)</small>
+            <span class="big-digit" style="-webkit-text-stroke: 2px var(--blue);">0</span>
+            <div style="border: 1px dashed var(--blue); border-radius: 15px; padding: 15px; background: rgba(56, 189, 248, 0.05); margin-top: 10px;">
+                <small style="color:var(--blue);">💎 VIP PANNA</small><br>
+                <b style="font-size: 24px; color:white;">145, 235, 690</b>
+            </div>
+            <div class="rule-box">
+                ⚠️ नियम: जहाँ गेम पास हो जाये, उसके बाद तुरंत STOP कर दें।
+            </div>
         </div>
     </div>
 
-    <div style="text-align: center; padding: 25px; color: #adb5bd; font-size: 11px; font-weight: bold;">
-        पेमेंट की फुल गारंटी | विश्वास का धंधा <br>
-        AGRIMM TECH SOLUTIONS © 2026
+    <div id="2ank" class="game-display">
+        <div class="vip-card">
+            <div style="color:var(--gold); font-weight: 900; border-bottom: 1px solid #333; padding-bottom: 10px;">📊 VIP 2-ANK OTC धमाका</div>
+            <span class="big-digit">2 --- 7</span>
+            
+            <div style="text-align: left; background: #161b22; padding: 12px; border-radius: 15px; border: 1px solid #333; margin-top: 10px;">
+                <b style="color:var(--gold);">👉 अंक [ 2 ] OTC</b><br>
+                🔥 Strong: 129, 237, 480<br>
+                <small style="color:#94a3b8;">Supp: 110, 228, 570, 679, 499, 552, 200</small>
+            </div>
+
+            <div style="text-align: left; background: #161b22; padding: 12px; border-radius: 15px; border: 1px solid #333; margin-top: 10px;">
+                <b style="color:var(--blue);">👉 अंक [ 7 ] OTC</b><br>
+                🔥 Strong: 124, 250, 340<br>
+                <small style="color:#94a3b8;">Supp: 890, 223, 133, 700, 449, 115, 377</small>
+            </div>
+            
+            <div class="rule-box" style="border-left-color: var(--blue); background: #e0f2fe; color: #0369a1;">
+                🚨 सूचना: कल्याण या मेन बाजार में जहाँ भी गेम पास हो जाए, उसके बाद आपको नहीं खेलना है। सुरक्षित खेलें।
+            </div>
+        </div>
+    </div>
+
+    <div id="date_fix" class="game-display">
+        <div class="vip-card" style="border-color: var(--green);">
+            <h2 style="color:white; margin:0;">🔥 DATE FIX धमाका 🔥</h2>
+            <div style="color:var(--gold); margin:15px 0; font-size: 14px;">
+                ✅ SINGLE FIX OPEN | ✅ FIX JODI | ✅ FIX PANNA
+            </div>
+            <a href="https://wa.me/917225914607?text=Sir%20Mujhe%20Aaj%20Ka%20Date%20Fix%20Single%20Open%20Jodi%20Panna%20Chahiye" class="wa-btn">FIX GAME KE LIYE MESSAGE KARE</a>
+        </div>
+    </div>
+
+    <div id="strong_ank" class="game-display">
+        <div class="vip-card" style="text-align: left;">
+            <div style="text-align: center; color: var(--gold); border-bottom: 1px dashed #444; padding-bottom: 10px; margin-bottom: 15px;">
+                <b>♏︎ AGRIMM STRONG ANK</b><br>तारीख: 09-02-2026
+            </div>
+            <p><b>☞ Sridevi Day ya Time Bazar:</b> <span class="m-ank">2-7-3-8</span><br><small style="color:red;">दोनों में से कोई 1 मार्केट में लाभदायक</small></p>
+            <p><b>☞ Madhur Day Ya Milan Day:</b> <span class="m-ank">1-6-0-5</span><br><small style="color:red;">दोनों में से कोई 1 मार्केट में लाभदायक</small></p>
+            <p><b>☞ Rajdhani Day:</b> <span class="m-ank">6-9-7</span></p>
+            <p><b>☞ Kalyan Ya Sridevi Night:</b> <span class="m-ank">1-0-6-2</span><br><small style="color:red;">दोनों में से कोई 1 मार्केट में लाभदायक</small></p>
+            <p><b>☞ Madhur Night Ya RAjdhani Night:</b> <span class="m-ank">4-7-9</span></p>
+            <p><b>☞ Milan Night Ya Main Bazar:</b> <span class="m-ank">9-7-5</span><br><small style="color:red;">दोनों में से कोई 1 मार्केट में लाभदायक</small></p>
+        </div>
     </div>
 </div>
 
-<a href="https://wa.me/917225914607?text=Hello%20G%20G%20King%20I%20Want%20To%20Play" class="wa-footer">
-    व्हाट्सएप पर गेम खेलें 🚀
-</a>
+<script>
+    const today6Ank = {
+        "Sridevi Day": "2-1-0-4-5-6", "Time Bazar": "1-0-9-3-4-5", "Madhur Day": "2-1-0-4-5-6",
+        "Milan Day": "1-0-9-3-4-5", "Rajdhani Day": "0-9-8-2-3-4", "Supreme Day": "4-3-2-6-7-8",
+        "Kalyan": "0-9-8-2-3-4", "Sridevi Night": "4-3-2-6-7-8", "Madhur Night": "6-5-4-8-9-0",
+        "Milan Night": "5-4-3-7-8-9", "Supreme Night": "3-2-1-6-5-7", "Rajdhani Night": "0-9-8-2-3-4",
+        "Kalyan Night": "3-2-1-6-5-7", "Main Bazar": "7-6-5-9-0-1"
+    };
 
+    function load6() {
+        const el = document.getElementById('list6');
+        el.innerHTML = "";
+        for (const m in today6Ank) {
+            el.innerHTML += `<div class="m-card market-item"><span>${m}</span><span class="m-ank">${today6Ank[m]}</span></div>`;
+        }
+    }
+    load6();
+
+    function switchTab(id, el) {
+        document.querySelectorAll('.game-display').forEach(d => d.style.display = 'none');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.getElementById(id).style.display = 'block';
+        el.classList.add('active');
+        window.scrollTo(0,0);
+    }
+</script>
 </body>
 </html>
