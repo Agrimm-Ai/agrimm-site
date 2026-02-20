@@ -1,106 +1,95 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AGRIMM BUKEE - Official Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root { --gold: #ffd700; --dark-bg: #0a0e14; --card-bg: #161b22; --whatsapp: #25d366; }
-        body { font-family: 'Roboto', sans-serif; background-color: var(--dark-bg); color: white; margin: 0; padding: 0; text-align: center; }
-        
-        .header { background: linear-gradient(135deg, #1e293b 0%, #000 100%); padding: 30px 10px; border-bottom: 3px solid var(--gold); }
-        .header h1 { font-family: 'Oswald', sans-serif; font-size: 2.5rem; margin: 0; color: var(--gold); text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
-        .header p { font-size: 1rem; color: #ccc; margin-top: 5px; letter-spacing: 1px; }
+const { Telegraf, Markup } = require('telegraf');
+const express = require('express'); 
+const app = express();
 
-        .container { max-width: 600px; margin: auto; padding: 15px; }
+app.get('/', (req, res) => res.send('Bot is Running!'));
+app.listen(process.env.PORT || 3000);
 
-        .section-title { background: var(--gold); color: black; padding: 10px; font-weight: bold; border-radius: 5px; margin: 25px 0 15px; font-size: 1.2rem; text-transform: uppercase; }
-        .market-list { background: var(--card-bg); border-radius: 12px; padding: 10px; border: 1px solid #30363d; }
-        .market-row { display: flex; justify-content: space-between; padding: 12px 10px; border-bottom: 1px solid #21262d; align-items: center; }
-        .market-row:last-child { border-bottom: none; }
-        .market-name { font-weight: bold; color: #fff; text-align: left; flex: 1; }
-        .market-time { color: var(--gold); font-size: 0.9rem; font-weight: 700; }
+const BOT_TOKEN = '7942529906:AAF827VI_gIQTMfU_CiUKU86IpF4CboNt38';
+const bot = new Telegraf(BOT_TOKEN);
 
-        .rate-card { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .rate-item { background: #0d1117; border: 1px solid var(--gold); padding: 15px; border-radius: 8px; }
-        .rate-val { display: block; font-size: 1.2rem; font-weight: bold; color: var(--gold); margin-top: 5px; }
+const getTodayDate = () => "20-02-2026";
+const getTodayDay = () => "शुक्रवार";
 
-        .payment-box { background: #1c2128; border: 1px dashed var(--gold); padding: 25px; border-radius: 12px; margin-top: 30px; }
-        .pay-icons { font-size: 1.3rem; font-weight: bold; color: #38bdf8; margin-bottom: 15px; }
+// --- फोटो के डायरेक्ट लिंक यहाँ डालें ---
+const IMG_FOLLOW_DAY = "https://i.postimg.cc/your-link/day.jpg"; 
+const IMG_FOLLOW_NIGHT = "https://i.postimg.cc/your-link/night.jpg";
 
-        .wa-btn { display: inline-block; background: var(--whatsapp); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); transition: 0.3s; }
-        .wa-btn:active { transform: scale(0.95); }
+const specialNote = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ **विशेष नोट:**
+● Open Pass होने के बाद Close न खेलें।
+● Open या Close 100% Pass होगा।
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ **AGRIMM OFFICIAL**`;
 
-        .wa-float { position: fixed; bottom: 20px; right: 20px; background: var(--whatsapp); color: white; width: 60px; height: 60px; border-radius: 50px; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); text-decoration: none; z-index: 1000; animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+// 📊 20-02-2026 का अपडेटेड मार्केट डेटा
+const marketData = {
+    "TIME_BAZAR": `⚡ **TIME BAZAR** ⚡\n📅 ${getTodayDate()} | ${getTodayDay()}\n◢◤ आज का फाइनल बुलेटिन ◢◤\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n◈ FIX ANK ➲ 〖 0 〗\n◈ STRONG ➲ 〖 5 〗\n◈ SUPPORT ➲ 〖 1, 6 〗\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n📊 **MASTER DATA BOARD:**\n🥇 TOP | 0 | 01, 06, 05, 00 | 127, 460, 550, 280\n🥈 HIGH | 5 | 51, 56, 50, 55 | 140, 230, 690, 159\n🥉 SAFE | 1 | 10, 15, 16, 11 | 128, 470, 100, 146\n🥉 SAFE | 6 | 60, 65, 61, 66 | 123, 150, 600, 240` + specialNote,
 
-        .footer { margin-top: 40px; padding: 20px; font-size: 0.8rem; color: #8b949e; }
-    </style>
-</head>
-<body>
+    "MILAN_DAY": `⚡ **MILAN DAY** ⚡\n📅 ${getTodayDate()} | ${getTodayDay()}\n◢◤ आज का फाइनल बुलेटिन ◢◤\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n◈ FIX ANK ➲ 〖 1 〗\n◈ STRONG ➲ 〖 6 〗\n◈ SUPPORT ➲ 〖 3, 8 〗\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n📊 **MASTER DATA BOARD:**\n🥇 TOP | 1 | 13, 18, 16, 11 | 128, 470, 100, 146\n🥈 HIGH | 6 | 63, 68, 61, 66 | 123, 150, 600, 240\n🥉 SAFE | 3 | 31, 36, 38, 33 | 120, 148, 670, 247\n🥉 SAFE | 8 | 81, 86, 83, 88 | 125, 440, 260, 350` + specialNote,
 
-<div class="header">
-    <h1>🎲 AGRIMM BUKEE 🎲</h1>
-    <p>विश्वसनीयता और सबसे तेज़ सर्विस</p>
-</div>
+    "RAJDHANI_DAY": `⚡ **RAJDHANI DAY** ⚡\n📅 ${getTodayDate()} | ${getTodayDay()}\n◢◤ आज का फाइनल बुलेटिन ◢◤\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n◈ FIX ANK ➲ 〖 4 〗\n◈ STRONG ➲ 〖 9 〗\n◈ SUPPORT ➲ 〖 2, 7 〗\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n📊 **MASTER DATA BOARD:**\n🥇 TOP | 4 | 42, 47, 49, 44 | 130, 158, 400, 220\n🥈 HIGH | 9 | 92, 97, 94, 99 | 126, 450, 270, 360\n🥉 SAFE | 2 | 24, 29, 27, 22 | 129, 480, 570, 156\n🥉 SAFE | 7 | 74, 79, 72, 77 | 179, 340, 250, 115` + specialNote,
 
-<div class="container">
-    <div class="section-title">⏰ DAY MARKET'S (डे मार्केट)</div>
-    <div class="market-list">
-        <div class="market-row"><span class="market-name">✨ SRIDEVI</span> <span class="market-time">11:35 AM - 12:35 PM</span></div>
-        <div class="market-row"><span class="market-name">✨ TIME BAZAR</span> <span class="market-time">01:05 PM - 02:05 PM</span></div>
-        <div class="market-row"><span class="market-name">✨ MADHUR DAY</span> <span class="market-time">01:35 PM - 02:35 PM</span></div>
-        <div class="market-row"><span class="market-name">✨ MILAN DAY</span> <span class="market-time">03:05 PM - 05:05 PM</span></div>
-        <div class="market-row"><span class="market-name">✨ RAJDHANI DAY</span> <span class="market-time">03:10 PM - 05:10 PM</span></div>
-        <div class="market-row"><span class="market-name">✨ SUPREME DAY</span> <span class="market-time">03:35 PM - 05:35 PM</span></div>
-        <div class="market-row"><span class="market-name">✨ KALYAN</span> <span class="market-time">04:05 PM - 06:05 PM</span></div>
-    </div>
+    "KALYAN": `⚡ **KALYAN** ⚡\n📅 ${getTodayDate()} | ${getTodayDay()}\n◢◤ आज का final बुलेटिन ◢◤\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n◈ FIX ANK ➲ 〖 2 〗\n◈ STRONG ➲ 〖 7 〗\n◈ SUPPORT ➲ 〖 4, 9 〗\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n📊 **MASTER DATA BOARD:**\n🥇 TOP | 2 | 24, 29, 27, 22 | 129, 480, 570, 156\n🥈 HIGH | 7 | 74, 79, 72, 77 | 179, 340, 250, 115\n🥉 SAFE | 4 | 42, 47, 44, 49 | 130, 158, 400, 220\n🥉 SAFE | 9 | 92, 97, 99, 94 | 126, 450, 270, 360` + specialNote,
 
-    <div class="section-title">⏰ NIGHT MARKET'S (नाइट मार्केट)</div>
-    <div class="market-list">
-        <div class="market-row"><span class="market-name">🌙 SRIDEVI NIGHT</span> <span class="market-time">07:15 PM - 08:15 PM</span></div>
-        <div class="market-row"><span class="market-name">🌙 MADHUR NIGHT</span> <span class="market-time">08:35 PM - 10:35 PM</span></div>
-        <div class="market-row"><span class="market-name">🌙 SUPREME NIGHT</span> <span class="market-time">08:45 PM - 10:45 PM</span></div>
-        <div class="market-row"><span class="market-name">🌙 MILAN NIGHT</span> <span class="market-time">09:05 PM - 11:05 PM</span></div>
-        <div class="market-row"><span class="market-name">🌙 RAJDHANI NIGHT</span> <span class="market-time">09:35 PM - 11:45 PM</span></div>
-        <div class="market-row"><span class="market-name">🌙 KALYAN NIGHT</span> <span class="market-time">09:35 PM - 11:35 PM</span></div>
-        <div class="market-row"><span class="market-name">🌙 MAIN BAZAR</span> <span class="market-time">09:55 PM - 12:05 PM</span></div>
-    </div>
+    "MAIN_BAZAR": `⚡ **MAIN BAZAR** ⚡\n📅 ${getTodayDate()} | ${getTodayDay()}\n◢◤ रिकवरी स्पेशल बुलेटिन ◢◤\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n◈ FIX ANK ➲ 〖 0 〗\n◈ STRONG ➲ 〖 5 〗\n◈ SUPPORT ➲ 〖 1, 6 〗\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n📊 **MASTER DATA BOARD:**\n🥇 TOP | 0 | 01, 06, 05, 00 | 127, 460, 550, 280\n🥈 HIGH | 5 | 51, 56, 50, 55 | 140, 230, 690, 159\n🥉 SAFE | 1 | 10, 15, 16, 11 | 128, 470, 100, 146\n🥉 SAFE | 6 | 60, 65, 61, 66 | 123, 150, 600, 240` + specialNote,
 
-    <div class="section-title">💰 RATE CARD (रेट कार्ड)</div>
-    <div class="rate-card">
-        <div class="rate-item">अंक (ANK) <span class="rate-val">100 का 950</span></div>
-        <div class="rate-item">जोड़ी (JODI) <span class="rate-val">100 का 9500</span></div>
-        <div class="rate-item">SP पन्ना <span class="rate-val">100 का 15000</span></div>
-        <div class="rate-item">DP पन्ना <span class="rate-val">100 का 30000</span></div>
-        <div class="rate-item">TP पन्ना <span class="rate-val">100 का 50000</span></div>
-        <div class="rate-item">हाफ संगम <span class="rate-val">100 का 90000</span></div>
-    </div>
+    "MILAN_NIGHT": `⚡ **MILAN NIGHT** ⚡\n📅 ${getTodayDate()} | ${getTodayDay()}\n◢◤ आज का फाइनल बुलेटिन ◢◤\n━━━━━━━━━━━━━━━━━━━━\nबाकी डेटा के लिए एडमिन से संपर्क करें।` + specialNote
+};
 
-    <div class="payment-box">
-        <h3 style="color: var(--gold); margin-bottom: 10px;">🛡️ 100% सुरक्षित और भरोसेमंद 🛡️</h3>
-        <p style="font-size: 0.9rem; color: #8b949e; line-height: 1.6;">
-            फास्ट पेमेंट और ईमानदारी ही हमारी पहचान है। <br>
-            गेम आईडी और पॉइंट के लिए नीचे क्लिक करें।
-        </p>
-        
-        <div class="pay-icons">PhonePe | Google Pay</div>
-        
-        <a href="https://wa.me/917225914607?text=Sir%20I%20Want%20to%20Play" class="wa-btn">
-           WhatsApp पर संपर्क करें 📲
-        </a>
-    </div>
+const mainKB = Markup.inlineKeyboard([
+    [Markup.button.callback('🔥 TODAY VIP GAME 🔥', 'MENU_FOLDERS')],
+    [Markup.button.callback('📊 MASTER CHART', 'MENU_CHART')],
+    [Markup.button.callback('🎯 FOLLOW ANK', 'MENU_FOLLOW')],
+    [Markup.button.url('📲 WhatsApp VIP', 'https://wa.me/917225914607')]
+]);
 
-    <div class="footer">
-        🙏 सेवा का मौका अवश्य दें! धन्यवाद! 🙏<br>
-        © 2026 AGRIMM BUKEE OFFICIAL
-    </div>
-</div>
+const folderKB = Markup.inlineKeyboard([
+    [Markup.button.callback('⚡ TIME BAZAR', 'GO_TIME_BAZAR'), Markup.button.callback('⚡ MILAN DAY', 'GO_MILAN_DAY')],
+    [Markup.button.callback('⚡ KALYAN', 'GO_KALYAN'), Markup.button.callback('⚡ RAJDHANI DAY', 'GO_RAJDHANI_DAY')],
+    [Markup.button.callback('⚡ MAIN BAZAR', 'GO_MAIN_BAZAR')],
+    [Markup.button.callback('⬅️ BACK TO HOME', 'HOME')]
+]);
 
-<a href="https://wa.me/917225914607?text=Hello%20AGRIMM%20Sir" class="wa-float" target="_blank">
-    <svg width="35" height="35" fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
+bot.start((ctx) => {
+    ctx.reply(`👑 **Welcome Agrimm Official** 👑\n━━━━━━━━━━━━━━━━━━━━\n📅 दिनांक: **${getTodayDate()}**\n👇 आज का धमाका देखने के लिए नीचे बटन दबाएं:`, mainKB);
+});
 
-</body>
-</html>
+bot.action('HOME', async (ctx) => {
+    try { await ctx.editMessageText(`👑 **Welcome Agrimm Official** 👑\n━━━━━━━━━━━━━━━━━━━━\n📅 दिनांक: **${getTodayDate()}**\n👇 गेम देखने के लिए बटन दबाएं:`, mainKB); } catch (e) {}
+});
+
+bot.action('MENU_FOLDERS', (ctx) => {
+    ctx.editMessageText(`📂 **Select Market Folder:**\n📅 ${getTodayDate()} (${getTodayDay()})`, folderKB);
+});
+
+bot.action('GO_TIME_BAZAR', (ctx) => ctx.editMessageText(marketData.TIME_BAZAR, Markup.inlineKeyboard([[Markup.button.callback('⬅️ BACK TO LIST', 'MENU_FOLDERS')]])));
+bot.action('GO_MILAN_DAY', (ctx) => ctx.editMessageText(marketData.MILAN_DAY, Markup.inlineKeyboard([[Markup.button.callback('⬅️ BACK TO LIST', 'MENU_FOLDERS')]])));
+bot.action('GO_KALYAN', (ctx) => ctx.editMessageText(marketData.KALYAN, Markup.inlineKeyboard([[Markup.button.callback('⬅️ BACK TO LIST', 'MENU_FOLDERS')]])));
+bot.action('GO_RAJDHANI_DAY', (ctx) => ctx.editMessageText(marketData.RAJDHANI_DAY, Markup.inlineKeyboard([[Markup.button.callback('⬅️ BACK TO LIST', 'MENU_FOLDERS')]])));
+bot.action('GO_MAIN_BAZAR', (ctx) => ctx.editMessageText(marketData.MAIN_BAZAR, Markup.inlineKeyboard([[Markup.button.callback('⬅️ BACK TO LIST', 'MENU_FOLDERS')]])));
+
+bot.action('MENU_CHART', (ctx) => {
+    const chart = `🏆 **ALL MARKET 4 ANK OTC** 🏆\n📅 दिनांक: ${getTodayDate()}\n━━━━━━━━━━━━━━━━━━━━\n1. SRIDEVI DAY    |  0-5-3-8\n2. TIME BAZAR     |  0-5-2-7\n3. MADHUR DAY     |  3-8-1-6\n4. MILAN DAY      |  0-5-4-9\n5. RAJDHANI DAY   |  3-8-2-7\n6. SUPREME DAY    |  0-5-1-6\n7. KALYAN         |  0-5-3-8\n8. SRIDEVI NIGHT  |  1-6-3-8\n9. MADHUR NIGHT   |  0-5-3-8\n10. SUPREME NIGHT |  2-7-0-5\n11. MILAN NIGHT   |  3-8-4-9\n12. KALYAN NIGHT  |  0-5-3-8\n13. RAJDHANI NIGHT|  1-6-0-5\n14. MAIN BAZAR    |  3-8-0-5\n━━━━━━━━━━━━━━━━━━━━\n🎯 जहाँ पास, वही STOP करें!\n✅ **AGRIMM OFFICIAL**`;
+    ctx.editMessageText(chart, Markup.inlineKeyboard([[Markup.button.callback('⬅️ BACK', 'HOME')]]));
+});
+
+bot.action('MENU_FOLLOW', (ctx) => {
+    ctx.editMessageText('🎯 **CHOOSE FOLLOW ANK:**', Markup.inlineKeyboard([
+        [Markup.button.callback('🌞 DAY FOLLOW', 'VIEW_FOLLOW_DAY'), Markup.button.callback('🌙 NIGHT FOLLOW', 'VIEW_FOLLOW_NIGHT')],
+        [Markup.button.callback('⬅️ BACK', 'HOME')]
+    ]));
+});
+
+bot.action('VIEW_FOLLOW_DAY', async (ctx) => {
+    try { await ctx.deleteMessage(); } catch (e) {}
+    await ctx.sendPhoto(IMG_FOLLOW_DAY, { caption: `🌞 **DAY FOLLOW ANK**`, ...Markup.inlineKeyboard([[Markup.button.callback('⬅️ BACK', 'MENU_FOLLOW')]]) });
+});
+
+bot.action('VIEW_FOLLOW_NIGHT', async (ctx) => {
+    try { await ctx.deleteMessage(); } catch (e) {}
+    await ctx.sendPhoto(IMG_FOLLOW_NIGHT, { caption: `🌙 **NIGHT FOLLOW ANK**`, ...Markup.inlineKeyboard([[Markup.button.callback('⬅️ BACK', 'MENU_FOLLOW')]]) });
+});
+
+bot.launch();
