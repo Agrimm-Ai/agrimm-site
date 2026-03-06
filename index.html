@@ -1,7 +1,100 @@
-const { Telegraf } = require('telegraf');
-const bot = new Telegraf('7942529906:AAF827VI_gIQTMfU_CiUKU86IpF4CboNt38');
+const { Telegraf, Markup } = require('telegraf');
+const express = require('express'); 
+const app = express();
 
-bot.start((ctx) => ctx.reply('बॉट काम कर रहा है! ✅'));
-bot.on('text', (ctx) => ctx.reply('आपने कहा: ' + ctx.message.text));
+// सर्वर सेटअप (Render/Replit के लिए)
+app.get('/', (req, res) => res.send('Agrimm Bot is Active! ✅'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-bot.launch().then(() => console.log("Bot Started!"));
+// आपका टोकन
+const BOT_TOKEN = '7942529906:AAF827VI_gIQTMfU_CiUKU86IpF4CboNt38';
+const bot = new Telegraf(BOT_TOKEN);
+
+// तारीख और दिन निकालने का फंक्शन
+const getTodayDate = () => "06-03-2026";
+const getTodayDay = () => "शुक्रवार";
+
+const specialNote = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ **विशेष नोट:**
+● Open Pass होने के बाद Close न खेलें।
+● 100% Calculate & Fix Game.
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ **AGRIMM OFFICIAL**`;
+
+// 📊 मार्केट डेटा (गेम के साथ)
+const marketData = {
+    "TIME_BAZAR": `⚡ **TIME BAZAR** ⚡\n📅 ${getTodayDate()} | ${getTodayDay()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n◈ FIX ANK ➲ 〖 0 〗\n◈ STRONG ➲ 〖 5 〗\n◈ SUPPORT ➲ 〖 1, 6 〗\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n🥇 0 | 01, 06, 05, 00 | 127, 460\n🥈 5 | 51, 56, 50, 55 | 140, 230` + specialNote,
+
+    "MILAN_DAY": `⚡ **MILAN DAY** ⚡\n📅 ${getTodayDate()} | ${getTodayDay()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n◈ FIX ANK ➲ 〖 1 〗\n◈ STRONG ➲ 〖 6 〗\n◈ SUPPORT ➲ 〖 3, 8 〗\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n🥇 1 | 13, 18, 16, 11 | 128, 470\n🥈 6 | 63, 68, 61, 66 | 123, 150` + specialNote,
+
+    "KALYAN": `⚡ **KALYAN** ⚡\n📅 ${getTodayDate()} | ${getTodayDay()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n◈ FIX ANK ➲ 〖 2 〗\n◈ STRONG ➲ 〖 7 〗\n◈ SUPPORT ➲ 〖 4, 9 〗\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n🥇 2 | 24, 29, 27, 22 | 129, 480\n🥈 7 | 74, 79, 72, 77 | 179, 340` + specialNote,
+
+    "RAJDHANI_NIGHT": `🌙 **RAJDHANI NIGHT** 🌙\n📅 ${getTodayDate()} | ${getTodayDay()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n◈ FIX ANK ➲ 〖 4 〗\n◈ STRONG ➲ 〖 9 〗\n◈ SUPPORT ➲ 〖 2, 7 〗\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n🥇 4 | 42, 47, 49, 44 | 130, 158\n🥈 9 | 92, 97, 94, 99 | 126, 450` + specialNote,
+
+    "MAIN_BAZAR": `⚡ **MAIN BAZAR** ⚡\n📅 ${getTodayDate()} | ${getTodayDay()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n◈ FIX ANK ➲ 〖 0 〗\n◈ STRONG ➲ 〖 5 〗\n◈ SUPPORT ➲ 〖 1, 6 〗\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n🥇 0 | 01, 06, 05, 00 | 127, 460\n🥈 5 | 51, 56, 50, 55 | 140, 230` + specialNote
+};
+
+// 🏆 MASTER CHART
+const masterChartData = `
+🏆 **MASTER CHART 6 ANK OTC** 🏆
+📅 दिनांक: ${getTodayDate()}
+━━━━━━━━━━━━━━━━━━━━
+1. SRIDEVI DAY    | 0, 1, 2, 4, 5, 6
+2. TIME BAZAR     | 0, 8, 9, 2, 3, 4
+3. MILAN DAY      | 0, 8, 9, 2, 3, 4
+4. RAJDHANI DAY   | 0, 8, 9, 2, 3, 4
+5. KALYAN         | 2, 3, 4, 6, 7, 8
+6. MILAN NIGHT    | 9, 0, 1, 3, 4, 5
+7. RAJDHANI NIGHT | 4, 5, 6, 8, 9, 0
+8. KALYAN NIGHT   | 9, 0, 1, 3, 4, 5
+9. MAIN BAZAR     | 9, 0, 1, 3, 4, 5
+━━━━━━━━━━━━━━━━━━━━
+✅ **AGRIMM OFFICIAL**
+`;
+
+// --- Keyboards ---
+const mainKB = Markup.inlineKeyboard([
+    [Markup.button.callback('🔥 TODAY VIP GAME 🔥', 'MENU_FOLDERS')],
+    [Markup.button.callback('📊 MASTER CHART', 'MENU_CHART')],
+    [Markup.button.url('📲 WhatsApp VIP', 'https://wa.me/917225914607')]
+]);
+
+const folderKB = Markup.inlineKeyboard([
+    [Markup.button.callback('⚡ TIME BAZAR', 'GO_TIME_BAZAR'), Markup.button.callback('⚡ MILAN DAY', 'GO_MILAN_DAY')],
+    [Markup.button.callback('⚡ KALYAN', 'GO_KALYAN'), Markup.button.callback('🌙 RAJDHANI NIGHT', 'GO_RAJDHANI_NIGHT')],
+    [Markup.button.callback('⚡ MAIN BAZAR', 'GO_MAIN_BAZAR')],
+    [Markup.button.callback('⬅️ BACK TO HOME', 'HOME')]
+]);
+
+// --- Bot Logic ---
+bot.start((ctx) => {
+    return ctx.reply(`👑 **Welcome Agrimm Official** 👑\n━━━━━━━━━━━━━━━━━━━━\n📅 दिनांक: **${getTodayDate()}**\n👇 गेम देखने के लिए नीचे बटन दबाएं:`, mainKB);
+});
+
+bot.action('HOME', (ctx) => {
+    return ctx.editMessageText(`👑 **Welcome Agrimm Official** 👑\n━━━━━━━━━━━━━━━━━━━━\n📅 दिनांक: **${getTodayDate()}**\n👇 गेम देखने के लिए बटन दबाएं:`, mainKB).catch(() => {});
+});
+
+bot.action('MENU_FOLDERS', (ctx) => {
+    return ctx.editMessageText(`📂 **Select Market Folder:**\n📅 ${getTodayDate()} (${getTodayDay()})`, folderKB);
+});
+
+// Market Actions
+bot.action('GO_TIME_BAZAR', (ctx) => ctx.editMessageText(marketData.TIME_BAZAR, Markup.inlineKeyboard([[Markup.button.callback('⬅️ BACK', 'MENU_FOLDERS')]])));
+bot.action('GO_MILAN_DAY', (ctx) => ctx.editMessageText(marketData.MILAN_DAY, Markup.inlineKeyboard([[Markup.button.callback('⬅️ BACK', 'MENU_FOLDERS')]])));
+bot.action('GO_KALYAN', (ctx) => ctx.editMessageText(marketData.KALYAN, Markup.inlineKeyboard([[Markup.button.callback('⬅️ BACK', 'MENU_FOLDERS')]])));
+bot.action('GO_RAJDHANI_NIGHT', (ctx) => ctx.editMessageText(marketData.RAJDHANI_NIGHT, Markup.inlineKeyboard([[Markup.button.callback('⬅️ BACK', 'MENU_FOLDERS')]])));
+bot.action('GO_MAIN_BAZAR', (ctx) => ctx.editMessageText(marketData.MAIN_BAZAR, Markup.inlineKeyboard([[Markup.button.callback('⬅️ BACK', 'MENU_FOLDERS')]])));
+
+bot.action('MENU_CHART', (ctx) => {
+    return ctx.editMessageText(masterChartData, Markup.inlineKeyboard([[Markup.button.callback('⬅️ BACK', 'HOME')]]));
+});
+
+// Launch Bot
+bot.launch().then(() => console.log('✅ Bot is now Live and Online!'));
+
+// Graceful stop
+process.once('SIGINT', () => bot.stop('SIGINT'));
+process.once('SIGTERM', () => bot.stop('SIGTERM'));
